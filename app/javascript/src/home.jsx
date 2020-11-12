@@ -5,7 +5,6 @@ import About from "./components/about";
 import Login from "./components/login";
 import Signup from "./components/signup";
 import { safeCredentials, handleErrors } from "./utils/fetchHelper";
-import Feedpage from "./feedpage";
 
 class Home extends React.Component {
   state = {

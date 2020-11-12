@@ -36,7 +36,7 @@ class Layout extends React.Component {
   }
 
   handleClick3() {
-    window.location = "/";
+    window.location = "/feedpage";
   }
 
   render() {
