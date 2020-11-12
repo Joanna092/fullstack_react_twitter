@@ -6,7 +6,6 @@ import Post from "./components/posts";
 import { safeCredentials, handleErrors } from "./utils/fetchHelper";
 
 class Feedpage extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -17,7 +16,7 @@ class Feedpage extends React.Component {
       logged_user: "",
     };
     this.handleChange = this.handleChange.bind(this);
-    this.deletePost = this.deletePost.bind(this)
+    this.deletePost = this.deletePost.bind(this);
   }
 
   handleChange(event) {
@@ -28,50 +27,42 @@ class Feedpage extends React.Component {
   }
 
   componentDidMount() {
-    this._isMounted = true;
-    if (this._isMounted) {
-      fetch("/api/authenticated")
-        .then(handleErrors)
-        .then((data) => {
-          console.log(data);
-          this.setState({
-            username: data.username,
-            logged_user: data.username,
-          });
-        })
-        .then(() => {
-          fetch(`/api/users/${this.state.username}/tweets`)
-            .then(handleErrors)
-            .then((data) => {
-              this.setState({
-                user_tweets: data.tweets,
-              });
-            });
-        })
-        .then(() => {
-          fetch("/api/tweets")
-            .then(handleErrors)
-            .then((data) => {
-              console.log(data);
-              this.setState({ 
-                all_tweets: data.tweets 
-              });
+    fetch("/api/authenticated")
+      .then(handleErrors)
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          username: data.username,
+          logged_user: data.username,
+        });
+      })
+      .then(() => {
+        fetch(`/api/users/${this.state.username}/tweets`)
+          .then(handleErrors)
+          .then((data) => {
+            this.setState({
+              user_tweets: data.tweets,
             });
           });
-    }
+      })
+      .then(() => {
+        fetch("/api/tweets")
+          .then(handleErrors)
+          .then((data) => {
+            console.log(data);
+            this.setState({
+              all_tweets: data.tweets,
+            });
+          });
+      });
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  
-  onFocus= (e) => {
+  onFocus = (e) => {
     this.setState({
       text: " ",
     });
-  }
-  
+  };
+
   newPost = (e) => {
     console.log("posted");
     if (e) {
@@ -114,7 +105,7 @@ class Feedpage extends React.Component {
           .then((data) => {
             this.setState({ user_tweets: data.tweets });
           });
-      });;
+      });
   };
 
   deletePost(id, user) {
@@ -150,25 +141,28 @@ class Feedpage extends React.Component {
     }
   }
 
-
   render() {
     return (
       <Layout>
         <div className="container">
           <div className="row">
             <div className="col-3">
-            <Stats username={this.state.username} user_tweets={this.state.user_tweets.length} />
+              <Stats
+                username={this.state.username}
+                user_tweets={this.state.user_tweets.length}
+              />
             </div>
             <div className="col-9">
-              <Post 
-              username={this.state.username} 
-              all_tweets={this.state.all_tweets} 
-              text={this.state.text} 
-              logged_user={this.state.logged_user} 
-              newPost={this.newPost}
-              deletePost={this.deletePost}
-              handleChange={this.handleChange}
-              onFocus={this.onFocus}/>
+              <Post
+                username={this.state.username}
+                all_tweets={this.state.all_tweets}
+                text={this.state.text}
+                logged_user={this.state.logged_user}
+                newPost={this.newPost}
+                deletePost={this.deletePost}
+                handleChange={this.handleChange}
+                onFocus={this.onFocus}
+              />
             </div>
           </div>
         </div>

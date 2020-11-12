@@ -3,15 +3,8 @@ import "../styles.scss";
 import { safeCredentials, handleErrors } from "../utils/fetchHelper";
 
 class Myposts extends Component {
-  constructor() {
-    super();
-    this.state = {
-      text: "Type your message here",
-      tweets: [],
-      authenticated: false,
-      username: " ",
-    };
-    this.handleChange = this.handleChange.bind(this);
+  constructor(props) {
+    super(props);
   }
 
   handleChange(event) {
@@ -21,103 +14,36 @@ class Myposts extends Component {
     });
   }
 
-  componentDidMount() {
-    fetch("/api/authenticated")
-      .then(handleErrors)
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          username: data.username,
-        });
-
-        fetch(`/api/users/${data.username}/tweets`)
-          .then(handleErrors)
-          .then((data) => {
-            this.setState({ tweets: data.tweets });
-          });
-      });
-  }
-
-  newPost = (e) => {
-    console.log("posted");
-    if (e) {
-      e.preventDefault();
-    }
-    this.setState({
-      error: "",
-    });
-
-    fetch(
-      "/api/tweets",
-      safeCredentials({
-        method: "POST",
-        body: JSON.stringify({
-          tweet: {
-            username: this.state.username,
-            message: this.state.text,
-          },
-        }),
-      })
-    )
-      .then(handleErrors)
-      .catch((error) => {
-        this.setState({
-          error: "Could not add tweet",
-        });
-        console.log("Could not add tweet");
-      })
-      .then(() => {
-        fetch(`/api/users/${this.state.username}/tweets`)
-          .then(handleErrors)
-          .then((data) => {
-            this.setState({ tweets: data.tweets });
-          });
-      });
+  handleChange = () => {
+    this.props.handleChange();
   };
 
-  deletePost(id) {
-    console.log("deleted");
-    fetch(
-      `/api/tweets/${id}`,
-      safeCredentials({
-        method: "DELETE",
-      })
-    )
-      .then(handleErrors)
-      .catch((error) => {
-        this.setState({
-          error: "Could not delete tweet",
-        });
-        console.log("Could not delete tweet");
-      })
-      .then(() => {
-        fetch(`/api/users/${this.state.username}/tweets`)
-          .then(handleErrors)
-          .then((data) => {
-            this.setState({ tweets: data.tweets });
-          });
-      });
-  }
+  onFocus = () => {
+    this.props.onFocus();
+  };
+
+  newPost = () => {
+    this.props.newPost();
+  };
+
+  deletePost = () => {
+    this.props.deletePost();
+  };
 
   render() {
-    const { tweets } = this.state;
+    const { user_tweets } = this.props;
     return (
       <React.Fragment>
         <div className="border_write_tweet">
-          <form onSubmit={this.newPost}>
+          <form onSubmit={this.props.newPost}>
             <div class="form-group">
               <textarea
                 class="form-control"
                 rows="3"
                 placeholder="What is happening?"
-                onChange={this.handleChange}
-                value={this.state.text}
-                onFocus={(e) => {
-                  console.log("Focused on input");
-                  this.setState({
-                    text: " ",
-                  });
-                }}
+                onChange={this.props.handleChange}
+                value={this.props.text}
+                onFocus={this.props.onFocus}
                 name="text"
               ></textarea>
 
@@ -129,7 +55,7 @@ class Myposts extends Component {
           </form>
         </div>
 
-        {tweets.map((tweet) => {
+        {user_tweets.map((tweet) => {
           return (
             <div className="border_tweets">
               <div className="container">
@@ -140,7 +66,7 @@ class Myposts extends Component {
                   </div>
                   <div className="col-4">
                     <button
-                      onClick={() => this.deletePost(tweet.id)}
+                      onClick={() => this.props.deletePost(tweet.id)}
                       type="button"
                       class="btn btn-danger delete_button"
                     >

@@ -1,27 +1,10 @@
 import React, { Component } from "react";
 import "../styles.scss";
-import { safeCredentials, handleErrors } from "../utils/fetchHelper";
-import Stats from "./stats";
 
 class Post extends Component {
   constructor(props) {
     super(props);
-   /* this.state = {
-      text: "Type your message here",
-      tweets: [],
-      username: " ",
-      logged_user: "example user",
-    }; */
-   // this.handleChange = this.handleChange.bind(this);
-    /*  this.deletePost = this.deletePost.bind(this) */
   }
-
-  /*handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-  }*/
 
   handleChange = () => {
     this.props.handleChange()
@@ -38,94 +21,6 @@ class Post extends Component {
   deletePost = () => {
     this.props.deletePost()
 }
-
-/*
-
-  newPost = (e) => {
-    console.log("posted");
-    if (e) {
-      e.preventDefault();
-    }
-    this.setState({
-      error: "",
-    });
-
-    fetch(
-      "/api/tweets",
-      safeCredentials({
-        method: "POST",
-        body: JSON.stringify({
-          tweet: {
-            username: this.state.user,
-            message: this.state.text,
-          },
-        }),
-      })
-    )
-      .then(handleErrors)
-      .catch((error) => {
-        this.setState({
-          error: "Could not add tweet",
-        });
-        console.log("Could not add tweet");
-      })
-      .then(() => {
-        fetch("/api/tweets")
-          .then(handleErrors)
-          .then((data) => {
-            console.log(data);
-            this.setState({ tweets: data.tweets });
-          });
-      });
-  };
-
-  deletePost(id, user) {
-    if (user == this.state.logged_user) {
-      fetch(
-        `/api/tweets/${id}`,
-        safeCredentials({
-          method: "DELETE",
-        })
-      )
-        .then(handleErrors)
-        .catch((error) => {
-          this.setState({
-            error: "Could not delete tweet",
-          });
-          console.log("Could not delete tweet");
-        })
-        .then(() => {
-          fetch("/api/tweets")
-            .then(handleErrors)
-            .then((data) => {
-              console.log(data);
-              this.setState({ tweets: data.tweets });
-            });
-        });
-    }
-  }
-
-  */
-
-  /*
-  componentDidMount() {
-    fetch("/api/authenticated")
-      .then(handleErrors)
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          logged_user: data.username,
-        });
-      });
-
-    fetch("/api/tweets")
-      .then(handleErrors)
-      .then((data) => {
-        console.log(data);
-        this.setState({ tweets: data.tweets });
-      });
-  }
-*/
 
   render() {
    const { all_tweets } = this.props;

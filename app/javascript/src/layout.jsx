@@ -9,7 +9,7 @@ class Layout extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClick2 = this.handleClick2.bind(this);
-    this.handleClick3 = this.handleClick3.bind(this);
+    this.handleClick3 = this.handleClick3.bind(this); 
   }
 
   componentDidMount() {
