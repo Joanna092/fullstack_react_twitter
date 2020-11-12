@@ -135,7 +135,7 @@ class Myposts extends Component {
               <div className="container">
                 <div className="row">
                   <div key={tweet.id} className="col-8">
-                    <p>Username@ {tweet.username}</p>
+                    <p className="p_stats">Username@ {tweet.username}</p>
                     <p>{tweet.message}</p>
                   </div>
                   <div className="col-4">

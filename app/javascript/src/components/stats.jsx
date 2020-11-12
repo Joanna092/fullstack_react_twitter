@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import "../styles.scss";
 import { safeCredentials, handleErrors } from "../utils/fetchHelper";
+import Post from "./posts";
 
 class Stats extends Component {
   _isMounted = false;
 
+  /*
   constructor() {
     super();
     this.state = {
@@ -12,7 +14,12 @@ class Stats extends Component {
       tweets: [],
     };
   }
+  */
 
+ constructor(props) {
+  super(props);
+}
+/*
   componentDidMount() {
     this._isMounted = true;
     if (this._isMounted) {
@@ -25,7 +32,7 @@ class Stats extends Component {
           });
         })
         .then(() => {
-          fetch(`/api/users/${this.state.username}/tweets`)
+          fetch(`/api/users/${this.props.username}/tweets`)
             .then(handleErrors)
             .then((data) => {
               this.setState({
@@ -39,18 +46,19 @@ class Stats extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-
+*/
   render() {
     return (
       <React.Fragment>
+
         <div className="border_stats">
           <p>
             <span className="p_stats">Username: </span>
-            {this.state.username}
+            {this.props.username}
           </p>
           <p>
             <span className="p_stats">Tweet number:</span>{" "}
-            {this.state.tweets.length}
+             {this.props.user_tweets}
           </p>
           <p>
             <span className="p_stats">Trends:</span>

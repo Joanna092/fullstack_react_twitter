@@ -1,26 +1,45 @@
 import React, { Component } from "react";
 import "../styles.scss";
 import { safeCredentials, handleErrors } from "../utils/fetchHelper";
+import Stats from "./stats";
 
 class Post extends Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(props) {
+    super(props);
+   /* this.state = {
       text: "Type your message here",
       tweets: [],
       username: " ",
       logged_user: "example user",
-    };
-    this.handleChange = this.handleChange.bind(this);
+    }; */
+   // this.handleChange = this.handleChange.bind(this);
     /*  this.deletePost = this.deletePost.bind(this) */
   }
 
-  handleChange(event) {
+  /*handleChange(event) {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
     });
-  }
+  }*/
+
+  handleChange = () => {
+    this.props.handleChange()
+}
+
+  onFocus = () => {
+  this.props.onFocus()
+}
+
+  newPost = () => {
+    this.props.newPost()
+}
+
+  deletePost = () => {
+    this.props.deletePost()
+}
+
+/*
 
   newPost = (e) => {
     console.log("posted");
@@ -86,6 +105,9 @@ class Post extends Component {
     }
   }
 
+  */
+
+  /*
   componentDidMount() {
     fetch("/api/authenticated")
       .then(handleErrors)
@@ -103,26 +125,23 @@ class Post extends Component {
         this.setState({ tweets: data.tweets });
       });
   }
+*/
 
   render() {
-    const { tweets } = this.state;
+   const { all_tweets } = this.props;
+   
     return (
       <React.Fragment>
         <div className="border_write_tweet">
-          <form onSubmit={this.newPost}>
+          <form onSubmit={this.props.newPost}>
             <div class="form-group">
               <textarea
                 class="form-control"
                 rows="3"
                 placeholder="What is happening?"
-                onChange={this.handleChange}
-                value={this.state.text}
-                onFocus={(e) => {
-                  console.log("Focused on input");
-                  this.setState({
-                    text: " ",
-                  });
-                }}
+                onChange={this.props.handleChange}
+                value={this.props.text}
+                onFocus={this.props.onFocus}
                 name="text"
               ></textarea>
 
@@ -134,7 +153,7 @@ class Post extends Component {
           </form>
         </div>
 
-        {tweets.map((tweet) => {
+        {all_tweets.map((tweet) => {
           return (
             <div className="border_tweets">
               <div className="container">
@@ -146,7 +165,7 @@ class Post extends Component {
 
                   <div className="col-4">
                     <button
-                      onClick={() => this.deletePost(tweet.id, tweet.username)}
+                      onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
                       type="button"
                       class="btn btn-danger delete_button"
                     >
