@@ -13,7 +13,7 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    fetch("/api/authenticated")
+      fetch("/api/authenticated")
       .then(handleErrors)
       .then((data) => {
         this.setState({
@@ -29,10 +29,10 @@ class Home extends React.Component {
   };
 
   render() {
-    const { authenticated } = this.state;
-    if (authenticated) {
-      window.location = "/feedpage";
-    }
+  /*const { authenticated } = this.state;
+   if (authenticated) {
+     window.location = "/feedpage";
+  } */
     return (
       <Layout>
         <div className="container">
@@ -52,8 +52,10 @@ class Home extends React.Component {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+ // const node = document.getElementById('params');
+ // const auth_data = JSON.parse(node.getAttribute('data-auth'));
   ReactDOM.render(
-    <Home />,
+    <Home /*auth_data={auth_data}*/ />,
     document.body.appendChild(document.createElement("div"))
   );
 });

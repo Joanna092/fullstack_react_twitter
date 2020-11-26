@@ -142,8 +142,10 @@ class Myfeeds extends React.Component {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+ // const node = document.getElementById('params');
+ // const auth_data = JSON.parse(node.getAttribute('data-auth'));
   ReactDOM.render(
-    <Myfeeds />,
+    <Myfeeds /*auth_data={auth_data} */ />,
     document.body.appendChild(document.createElement("div"))
   );
 });

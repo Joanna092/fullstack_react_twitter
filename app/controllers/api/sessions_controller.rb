@@ -22,8 +22,8 @@ class SessionsController < ApplicationController
     session = Session.find_by(token: token)    
       if session
       @user = session.user
-      render 'api/sessions/authenticated', status: :ok
-    else
+      render 'api/sessions/authenticated', status: :ok 
+    else 
       render json: { authenticated: false }, status: :bad_request
     end
   end

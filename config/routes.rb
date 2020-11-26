@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   root to: "static_pages#home"
   get '/feedpage' => 'static_pages#feedpage'
-  get '/logout' => 'static_pages#logout'
   get '/myfeeds' => 'static_pages#myfeeds'
 
   # Redirect all other paths to index page, which will be taken over by AngularJS
   #get '*path'    => "static_pages#home"
+
+  #new 
+ # get  '/auth'          => 'application#auth'
+#  get '/authorize'      =>  'static_pages#authorize'
 
  namespace :api do
 
