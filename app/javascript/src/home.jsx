@@ -7,12 +7,13 @@ import Signup from "./components/signup";
 import { safeCredentials, handleErrors } from "./utils/fetchHelper";
 
 class Home extends React.Component {
-  state = {
+ /* state = {
     authenticated: false,
     show_login: true,
   };
+  */
 
-  componentDidMount() {
+ /* componentDidMount() {
       fetch("/api/authenticated")
       .then(handleErrors)
       .then((data) => {
@@ -20,20 +21,22 @@ class Home extends React.Component {
           authenticated: data.authenticated,
         });
       });
-  }
+  } */
 
+  /*
   toggle = () => {
     this.setState({
       show_login: !this.state.show_login,
     });
   };
+  */
 
   render() {
-  const { authenticated } = this.state;
+  /*const { authenticated } = this.state;
    if (authenticated) {
      window.location = "/feedpage";
-  } 
-  
+  } */
+
     return (
       <Layout>
         <div className="container">

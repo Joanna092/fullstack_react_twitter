@@ -27,7 +27,7 @@ class Layout extends React.Component {
       .then(handleErrors)
       .then(function (data) {
         console.log(data);
-      //  window.location = "/";
+        window.location = "/";
       });
   }
 
