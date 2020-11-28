@@ -1,33 +1,29 @@
 class StaticPagesController < ApplicationController
-  before_action :auth
+  before_action :authorize, except: [:home]
 
-    def home
-      render 'home'
-    end
-
-  # def feedpage
-     # @auth_data = authorize
-   #   render 'feedpage'
-   # end
-
-    def myfeeds
-     # @auth_data = authorize
-      render 'myfeeds'
-    end 
-    
-=begin 
-   def authorize
-      token = cookies.permanent.signed[:twitter_session_token]
-      session = Session.find_by(token: token)  
-
-     if session
-        return {
-          user: session.user,
-        }
-     else  
-        return { authenticated: false }
-     end  
-end
-=end 
-
+  def home
+    render 'home'
   end
+
+  def feedpage
+    render 'feedpage'
+  end
+
+  def myfeeds
+    render 'myfeeds'
+  end
+
+  private
+
+  def authorize
+    token = cookies.permanent.signed[:twitter_session_token]
+    session = Session.find_by(token: token)
+
+    if !session
+     redirect_to :root
+      return
+    end
+    @auth_data = session.user
+  end
+
+end

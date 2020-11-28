@@ -172,11 +172,11 @@ class Feedpage extends React.Component {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
- // const node = document.getElementById('params');
- // const auth_data = JSON.parse(node.getAttribute('data-auth'));
+ //const node = document.getElementById('params');
+ //const auth_data = JSON.parse(node.getAttribute('data-auth'));
 
   ReactDOM.render(
-    <Feedpage /*auth_data={auth_data}*//>,
+    <Feedpage /*auth_data={auth_data}*/ />,
     document.body.appendChild(document.createElement("div"))
   );
 });

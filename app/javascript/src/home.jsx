@@ -29,10 +29,11 @@ class Home extends React.Component {
   };
 
   render() {
-  /*const { authenticated } = this.state;
+  const { authenticated } = this.state;
    if (authenticated) {
      window.location = "/feedpage";
-  } */
+  } 
+  
     return (
       <Layout>
         <div className="container">
