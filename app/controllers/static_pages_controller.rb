@@ -23,7 +23,7 @@ class StaticPagesController < ApplicationController
      redirect_to :root
       return
     end
-    @auth_data = session.user
+    @auth_data = session
   end
 
 end
