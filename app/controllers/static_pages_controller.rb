@@ -1,15 +1,17 @@
 class StaticPagesController < ApplicationController
-  before_action :authorize, except: [:home]
+  # before_action :authorize, except: [:home]
 
   def home
-    render 'home'
-  end
-
-  def feedpage
+    @user_data = authorize
     render 'feedpage'
   end
 
+  def login
+    render 'home'
+  end
+
   def myfeeds
+    @user_data = authorize
     render 'myfeeds'
   end
 
@@ -20,10 +22,10 @@ class StaticPagesController < ApplicationController
     session = Session.find_by(token: token)
 
     if !session
-     redirect_to :root
+      redirect_to '/login'
       return
     end
-    @auth_data = session
+    return session.user.to_json
   end
 
 end
