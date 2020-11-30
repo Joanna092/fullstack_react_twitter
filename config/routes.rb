@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: "static_pages#home"
 
-  get '/feedpage' => 'static_pages#feedpage'
+  get '/login' => 'static_pages#login'
   get '/myfeeds' => 'static_pages#myfeeds'
 
  # get  '/auth'          => 'application#auth'

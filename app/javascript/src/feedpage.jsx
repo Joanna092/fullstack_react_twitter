@@ -38,7 +38,7 @@ class Feedpage extends React.Component {
 
       })
       .then(() => {
-        fetch(`/api/users/${/*this.state.username*/ this.props.user_data}/tweets`)
+        fetch(`/api/users/${this.props.user_data.id}/tweets`)
           .then(handleErrors)
           .then((data) => {
             this.setState({
@@ -174,10 +174,10 @@ class Feedpage extends React.Component {
 
 document.addEventListener("DOMContentLoaded", () => {
    const node = document.getElementById('params');
-   const auth_data = JSON.parse(node.getAttribute('data-auth'));
+   const user_data = JSON.parse(node.getAttribute('data-user'));
 
   ReactDOM.render(
-    <Feedpage /*auth_data={auth_data}*/ user_data={auth_data.user} />,
+    <Feedpage /*auth_data={auth_data}*/ user_data={user_data} />,
     document.body.appendChild(document.createElement("div"))
   );
 });
