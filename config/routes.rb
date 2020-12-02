@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get '/login' => 'static_pages#login'
   get '/myfeeds' => 'static_pages#myfeeds'
 
+  #new 
+  get '/feedpage' => 'static_pages#home'
+
  # get  '/auth'          => 'application#auth'
   get '/authorize'      =>  'static_pages#authorize' #Do I need that here? 
 

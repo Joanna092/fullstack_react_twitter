@@ -10,10 +10,8 @@ class Feedpage extends React.Component {
     super();
     this.state = {
       text: "Type your message here",
-      username: "",
       all_tweets: [],
       user_tweets: [],
-      logged_user: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.deletePost = this.deletePost.bind(this);
@@ -27,25 +25,14 @@ class Feedpage extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/api/authenticated")
-      .then(handleErrors)
-      .then((data) => {
-        console.log(data);
-        this.setState({
-        username: data.username,
-        logged_user: data.username,
-        });
-
-      })
-      .then(() => {
-        fetch(`/api/users/${this.props.user_data.id}/tweets`)
+        fetch(`/api/users/${this.props.user_data.username}/tweets`)
           .then(handleErrors)
           .then((data) => {
+            console.log(data)
             this.setState({
               user_tweets: data.tweets,
-            });
-          });
-      })
+            });      
+      } ) 
       .then(() => {
         fetch("/api/tweets")
           .then(handleErrors)
@@ -79,7 +66,6 @@ class Feedpage extends React.Component {
         method: "POST",
         body: JSON.stringify({
           tweet: {
-            username: this.state.user,
             message: this.state.text,
           },
         }),
@@ -101,7 +87,7 @@ class Feedpage extends React.Component {
           });
       })
       .then(() => {
-        fetch(`/api/users/${this.state.username}/tweets`)
+        fetch(`/api/users/${this.props.user_data.username}/tweets`)
           .then(handleErrors)
           .then((data) => {
             this.setState({ user_tweets: data.tweets });
@@ -110,7 +96,7 @@ class Feedpage extends React.Component {
   };
 
   deletePost(id, user) {
-    if (user == this.state.logged_user) {
+    if (user == this.props.user_data.username) {
       fetch(
         `/api/tweets/${id}`,
         safeCredentials({
@@ -133,7 +119,7 @@ class Feedpage extends React.Component {
             });
         })
         .then(() => {
-          fetch(`/api/users/${this.state.username}/tweets`)
+          fetch(`/api/users/${this.props.user_data.username}/tweets`)
             .then(handleErrors)
             .then((data) => {
               this.setState({ user_tweets: data.tweets });
@@ -149,16 +135,15 @@ class Feedpage extends React.Component {
           <div className="row">
             <div className="col-3">
               <Stats
-                username={this.state.username}
+                username={this.props.user_data.username}
                 user_tweets={this.state.user_tweets.length}
               />
             </div>
             <div className="col-9">
               <Post
-                username={this.state.username}
+                username={this.props.user_data.username}
                 all_tweets={this.state.all_tweets}
                 text={this.state.text}
-                logged_user={this.state.logged_user}
                 newPost={this.newPost}
                 deletePost={this.deletePost}
                 handleChange={this.handleChange}
@@ -177,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
    const user_data = JSON.parse(node.getAttribute('data-user'));
 
   ReactDOM.render(
-    <Feedpage /*auth_data={auth_data}*/ user_data={user_data} />,
+    <Feedpage user_data={user_data} />,
     document.body.appendChild(document.createElement("div"))
   );
 });

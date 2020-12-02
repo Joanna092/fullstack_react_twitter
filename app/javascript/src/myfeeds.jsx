@@ -11,8 +11,6 @@ class Myfeeds extends React.Component {
     this.state = {
       text: "Type your message here",
       user_tweets: [],
-      authenticated: false,
-      username: " ",
     };
     this.handleChange = this.handleChange.bind(this);
     this.deletePost = this.deletePost.bind(this);
@@ -26,23 +24,13 @@ class Myfeeds extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/api/authenticated")
-      .then(handleErrors)
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          username: data.username,
-        });
-      })
-      .then(() => {
-        fetch(`/api/users/${this.state.username}/tweets`)
+        fetch(`/api/users/${this.props.user_data.username}/tweets`)
           .then(handleErrors)
           .then((data) => {
             this.setState({
               user_tweets: data.tweets,
             });
           });
-      });
   }
 
   onFocus = (e) => {
@@ -66,7 +54,6 @@ class Myfeeds extends React.Component {
         method: "POST",
         body: JSON.stringify({
           tweet: {
-            username: this.state.username,
             message: this.state.text,
           },
         }),
@@ -80,7 +67,7 @@ class Myfeeds extends React.Component {
         console.log("Could not add tweet");
       })
       .then(() => {
-        fetch(`/api/users/${this.state.username}/tweets`)
+        fetch(`/api/users/${this.props.user_data.username}/tweets`)
           .then(handleErrors)
           .then((data) => {
             this.setState({ user_tweets: data.tweets });
@@ -104,7 +91,7 @@ class Myfeeds extends React.Component {
         console.log("Could not delete tweet");
       })
       .then(() => {
-        fetch(`/api/users/${this.state.username}/tweets`)
+        fetch(`/api/users/${this.props.user_data.username}/tweets`)
           .then(handleErrors)
           .then((data) => {
             this.setState({ user_tweets: data.tweets });
@@ -119,13 +106,13 @@ class Myfeeds extends React.Component {
           <div className="row">
             <div className="col-3">
               <Stats
-                username={this.state.username}
+                username={this.props.user_data.username}
                 user_tweets={this.state.user_tweets.length}
               />
             </div>
             <div className="col-9">
               <Myposts
-                username={this.state.username}
+                username={this.props.user_data.username}
                 user_tweets={this.state.user_tweets}
                 text={this.state.text}
                 newPost={this.newPost}
@@ -142,10 +129,10 @@ class Myfeeds extends React.Component {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
- // const node = document.getElementById('params');
- // const auth_data = JSON.parse(node.getAttribute('data-auth'));
+    const node = document.getElementById('params');
+    const user_data = JSON.parse(node.getAttribute('data-user'));
   ReactDOM.render(
-    <Myfeeds /*auth_data={auth_data} */ />,
+    <Myfeeds user_data={user_data} />,
     document.body.appendChild(document.createElement("div"))
   );
 });

@@ -42,10 +42,7 @@ class Login extends React.Component {
       .then((data) => {
         if (data.success) {
           console.log("logged in");
-         /* const params = new URLSearchParams(window.location.search);
-          const redirect_url = params.get("redirect_url") || "/"; */
-         // window.location = redirect_url;
-         window.location = "/feedpage"
+          window.location = "/feedpage"
         }
       })
 

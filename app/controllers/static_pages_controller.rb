@@ -27,7 +27,7 @@ class StaticPagesController < ApplicationController
       redirect_to '/login'
       return
     end
-    return session.user.to_json
+      return session.user.to_json
   end
 
 end
