@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
 
   def home
     @user_data = authorize
+    return if not @user_data
     render 'feedpage'
   end
 
@@ -12,6 +13,7 @@ class StaticPagesController < ApplicationController
 
   def myfeeds
     @user_data = authorize
+    return if not @user_data
     render 'myfeeds'
   end
 
