@@ -42,7 +42,7 @@ class Login extends React.Component {
       .then((data) => {
         if (data.success) {
           console.log("logged in");
-          window.location = "/feedpage"
+          window.location = "/"
         }
       })
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/login' => 'static_pages#login'
   get '/myfeeds' => 'static_pages#myfeeds'
-  get '/feedpage' => 'static_pages#home'
+  get '/' => 'static_pages#home'
 
  namespace :api do
 
