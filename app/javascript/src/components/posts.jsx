@@ -1,10 +1,31 @@
 import React, { Component } from "react";
 import "../styles.scss";
+import { safeCredentials, handleErrors } from "../utils/fetchHelper";
 
 class Post extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      clicked: false,
+      chosen_tweets: [],
+    }
+    this.userClicked = this.userClicked.bind(this);
   }
+
+  userClicked = (e) => {
+    this.setState({
+      clicked: true,
+    })
+ 
+    fetch(`/api/users/${e.target.innerText}/tweets`)
+          .then(handleErrors)
+          .then((data) => {
+            console.log(data)
+            this.setState({
+              chosen_tweets: data.tweets,
+            });      
+      }) 
+  };
 
   handleChange = () => {
     this.props.handleChange()
@@ -44,17 +65,20 @@ class Post extends Component {
               <button type="submit" class="btn btn-secondary tweet_button">
                 Tweet
               </button>
+             
             </div>
           </form>
         </div>
 
-        {all_tweets.map((tweet) => {
+        { this.state.clicked === false ?
+
+        all_tweets.map((tweet) => {
           return (
             <div className="border_tweets">
               <div className="container">
                 <div className="row">
                   <div key={tweet.id} className="col-8">
-                    <p className="p_stats">Username@ {tweet.username}</p>
+                  <p className="p_stats" href="#"><span className="given_username" onClick={this.userClicked}>{tweet.username}</span>@ {tweet.username}</p>
                     <p>{tweet.message}</p>
                   </div>
 
@@ -71,7 +95,33 @@ class Post extends Component {
               </div>
             </div>
           );
-        })}
+        })
+        :
+        this.state.chosen_tweets.map((tweet) => {
+          return (
+            <div className="border_tweets">
+              <div className="container">
+                <div className="row">
+                  <div key={tweet.id} className="col-8">
+                  <p className="p_stats" href="#"><span onClick={this.userClicked}>{tweet.username}</span>@ {tweet.username}</p>
+                    <p>{tweet.message}</p>
+                  </div>
+
+                  <div className="col-4">
+                    <button
+                      onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
+                      type="button"
+                      class="btn btn-danger delete_button"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
       </React.Fragment>
     );
   }

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "../styles.scss";
-import { safeCredentials, handleErrors } from "../utils/fetchHelper";
-import Post from "./posts";
 
 class Stats extends Component {
   constructor(props) {
@@ -13,11 +11,11 @@ class Stats extends Component {
       <React.Fragment>
         <div className="border_stats">
           <p>
-            <span className="p_stats">Username: </span>
+            <span className="p_stats">Your username: </span>
             {this.props.username}
           </p>
           <p>
-            <span className="p_stats">Tweet number:</span>{" "}
+            <span className="p_stats">Your tweet number:</span>{" "}
             {this.props.user_tweets}
           </p>
           <p>

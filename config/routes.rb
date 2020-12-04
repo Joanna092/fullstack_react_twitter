@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get '/myfeeds' => 'static_pages#myfeeds'
   get '/' => 'static_pages#home'
 
+  #new
+  get '/userpage' => 'static_pages#userpage'
+
  namespace :api do
 
   # USERS

@@ -1,5 +1,4 @@
 class StaticPagesController < ApplicationController
-  # before_action :authorize, except: [:home]
 
   def home
     @user_data = authorize
