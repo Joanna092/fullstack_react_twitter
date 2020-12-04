@@ -103,7 +103,7 @@ class Post extends Component {
               <div className="container">
                 <div className="row">
                   <div key={tweet.id} className="col-8">
-                  <p className="p_stats" href="#"><span onClick={this.userClicked}>{tweet.username}</span>@ {tweet.username}</p>
+                  <p className="p_stats" href="#">{tweet.username}@ {tweet.username}</p>
                     <p>{tweet.message}</p>
                   </div>
 

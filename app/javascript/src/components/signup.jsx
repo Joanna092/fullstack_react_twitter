@@ -25,7 +25,7 @@ class Signup extends React.Component {
       e.preventDefault();
     }
     this.setState({
-      error: "",
+      error: " ",
     });
 
     fetch(
@@ -40,14 +40,19 @@ class Signup extends React.Component {
           },
         }),
       })
-    )
-      .then(handleErrors)
-      .catch((error) => {
-        this.setState({
-          error: "Could not sign up.",
-        });
-        console.log("Could not sign up");
-      });
+    ).then(handleErrors)
+    .then(data => {
+      if (data.success) {
+        console.log("SUCCESS!")
+      }
+    })
+    .catch(error => {
+      this.setState({
+        error: 'Could not log in.',
+      }
+      ) 
+      console.log("FAILURE")
+    }) 
   };
 
   render() {
@@ -91,6 +96,7 @@ class Signup extends React.Component {
             <button type="submit" className="btn btn-danger btn-block btn-lg">
               Sign up
             </button>
+            {error && <p className="text-danger mt-2">{error}</p>}
           </form>
           <hr />
           <p className="mb-0">
