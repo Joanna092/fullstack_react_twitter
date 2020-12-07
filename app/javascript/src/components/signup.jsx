@@ -121,9 +121,9 @@ class Signup extends React.Component {
           <hr />
           <p className="mb-0">
             Already have an account?{" "}
-            <a className="text-primary">
+            <span className="text-primary">
               <Link to="login-destination">Log in</Link>
-            </a>
+            </span>
           </p>
         </div>
       </React.Fragment>

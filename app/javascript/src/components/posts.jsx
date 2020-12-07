@@ -50,9 +50,9 @@ class Post extends Component {
       <React.Fragment>
         <div className="border_write_tweet">
           <form onSubmit={this.props.newPost}>
-            <div class="form-group">
+            <div className="form-group">
               <textarea
-                class="form-control"
+                className="form-control"
                 rows="3"
                 placeholder="What is happening?"
                 onChange={this.props.handleChange}
@@ -62,7 +62,7 @@ class Post extends Component {
               ></textarea>
 
               <span>Upload Image</span>
-              <button type="submit" class="btn btn-secondary tweet_button">
+              <button type="submit" className="btn btn-secondary tweet_button">
                 Tweet
               </button>
              
@@ -86,7 +86,7 @@ class Post extends Component {
                     <button
                       onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
                       type="button"
-                      class="btn btn-danger delete_button"
+                      className="btn btn-danger delete_button"
                     >
                       Delete
                     </button>
@@ -111,7 +111,7 @@ class Post extends Component {
                     <button
                       onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
                       type="button"
-                      class="btn btn-danger delete_button"
+                      className="btn btn-danger delete_button"
                     >
                       Delete
                     </button>

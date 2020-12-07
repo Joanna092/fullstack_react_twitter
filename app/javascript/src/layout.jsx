@@ -47,7 +47,7 @@ class Layout extends React.Component {
           <nav className="navbar navbar-expand navbar-light bg-light">
             <a href="/">
               <span className="navbar-brand mb-0 h1">
-                <i class="fab fa-twitter fa-2x"></i>Twitter Clone
+                <i className="fab fa-twitter fa-2x"></i>Twitter Clone
               </span>
             </a>
             <div className="collapse navbar-collapse w-100 order-3 dual-collapse2">
@@ -74,7 +74,7 @@ class Layout extends React.Component {
           <nav className="navbar navbar-expand navbar-light bg-light">
             <a href="/">
               <span className="navbar-brand mb-0 h1">
-                <i class="fab fa-twitter fa-2x"></i>Twitter Clone
+                <i className="fab fa-twitter fa-2x"></i>Twitter Clone
               </span>
             </a>
             <div className="collapse navbar-collapse w-100 order-3 dual-collapse2">

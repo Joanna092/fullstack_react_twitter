@@ -92,9 +92,9 @@ class Login extends React.Component {
           <hr />
           <p className="mb-0">
             Don't have an account?{" "}
-            <a className="text-primary">
-              <Link to="signup-destination">Sign up</Link>
-            </a>
+            <span className="text-primary">
+             <Link to="signup-destination">Sign up</Link> 
+            </span>
           </p>
         </div>
       </React.Fragment>
