@@ -11,7 +11,9 @@ class Signup extends React.Component {
     email: "",
     password: "",
     username: "",
-    error: "",
+    error: undefined,
+    successMessage: "",
+    failureMessage: "",
   };
 
   handleChange = (e) => {
@@ -24,10 +26,6 @@ class Signup extends React.Component {
     if (e) {
       e.preventDefault();
     }
-    this.setState({
-      error: " ",
-    });
-
     fetch(
       "/api/users",
       safeCredentials({
@@ -40,23 +38,45 @@ class Signup extends React.Component {
           },
         }),
       })
-    ).then(handleErrors)
-    .then(data => {
-      if (data.success) {
-        console.log("SUCCESS!")
-      }
-    })
-    .catch(error => {
-      this.setState({
-        error: 'Could not log in.',
-      }
-      ) 
-      console.log("FAILURE")
-    }) 
+    )
+      .then(handleErrors)
+      .then((data) => {
+        console.log(data);
+
+        if (data.success !== false) {
+          this.setState({
+            error: false,
+            successMessage: "Signup successfull! You can login now.",
+          });
+        } else {
+          this.setState({
+            error: true,
+            failureMessage:
+              "Signup failed. Please check if your email address is correct and your password has at least 8 characters.",
+          });
+        }
+      });
   };
 
   render() {
-    const { email, password, username, error } = this.state;
+    const {
+      email,
+      password,
+      username,
+      error,
+      successMessage,
+      failureMessage,
+    } = this.state;
+    let message;
+
+    if (error == undefined) {
+      message = <p></p>;
+    } else if (error == true) {
+      message = <p className="text-danger mt-2">{failureMessage}</p>;
+    } else if (error == false) {
+      message = <p className="text-primary mt-2">{successMessage}</p>;
+    }
+
     return (
       <React.Fragment>
         <div className="border_signup">
@@ -96,7 +116,7 @@ class Signup extends React.Component {
             <button type="submit" className="btn btn-danger btn-block btn-lg">
               Sign up
             </button>
-            {error && <p className="text-danger mt-2">{error}</p>}
+            {message}
           </form>
           <hr />
           <p className="mb-0">
@@ -112,4 +132,3 @@ class Signup extends React.Component {
 }
 
 export default Signup;
-
