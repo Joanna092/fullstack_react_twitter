@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Session, type: :model do
   describe '.create' do
     it 'must belong to a user' do
-      expect {
+      expect do
         Session.create!
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'should automatically generate a new token' do

@@ -1,4 +1,6 @@
+# frozen_string_literal: true
+
 class Tweet < ApplicationRecord
-    belongs_to :user
-    validates :message, length: { maximum: 140}, presence: true
+  belongs_to :user
+  validates :message, length: { maximum: 140 }, presence: true
 end

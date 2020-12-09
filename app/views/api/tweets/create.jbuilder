@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.tweet do
   json.username @tweet.user.username
   json.message  @tweet.message
