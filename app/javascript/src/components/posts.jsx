@@ -72,26 +72,29 @@ class Post extends Component {
 
         { this.state.clicked === false ?
 
-        all_tweets.map((tweet) => {
           return (
             <div className="border_tweets">
-              <div className="container">
-                <div className="row">
-                  <div key={tweet.id} className="col-8">
-                  <p className="p_stats" href="#"><span className="given_username" onClick={this.userClicked}>{tweet.username}</span>@ {tweet.username}</p>
-                    <p>{tweet.message}</p>
-                  </div>
+              <div className="row">
+                {all_tweets.map((tweet) => {
+                  return (
+                    <React.Fragment key={tweet.id}>
+                      <div className="col-8">
+                        <p className="p_stats" href="#"><span className="given_username" onClick={this.userClicked}>{tweet.username}</span>@ {tweet.username}</p>
+                          <p>{tweet.message}</p>
+                      </div>
 
-                  <div className="col-4">
-                    <button
-                      onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
-                      type="button"
-                      className="btn btn-danger delete_button"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
+                      <div className="col-4">
+                        <button
+                          onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
+                          type="button"
+                          className="btn btn-danger delete_button"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </React.Fragment>
+                  )
+                }
               </div>
             </div>
           );
