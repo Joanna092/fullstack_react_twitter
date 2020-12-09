@@ -8,44 +8,44 @@ class Post extends Component {
     this.state = {
       clicked: false,
       chosen_tweets: [],
-    }
+    };
     this.userClicked = this.userClicked.bind(this);
   }
 
   userClicked = (e) => {
     this.setState({
       clicked: true,
-    })
- 
+    });
+
     fetch(`/api/users/${e.target.innerText}/tweets`)
-          .then(handleErrors)
-          .then((data) => {
-            console.log(data)
-            this.setState({
-              chosen_tweets: data.tweets,
-            });      
-      }) 
+      .then(handleErrors)
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          chosen_tweets: data.tweets,
+        });
+      });
   };
 
   handleChange = () => {
-    this.props.handleChange()
-}
+    this.props.handleChange();
+  };
 
   onFocus = () => {
-  this.props.onFocus()
-}
+    this.props.onFocus();
+  };
 
   newPost = () => {
-    this.props.newPost()
-}
+    this.props.newPost();
+  };
 
   deletePost = () => {
-    this.props.deletePost()
-}
+    this.props.deletePost();
+  };
 
   render() {
-   const { all_tweets } = this.props;
-   
+    const { all_tweets } = this.props;
+
     return (
       <React.Fragment>
         <div className="border_write_tweet">
@@ -65,66 +65,77 @@ class Post extends Component {
               <button type="submit" className="btn btn-secondary tweet_button">
                 Tweet
               </button>
-             
             </div>
           </form>
         </div>
 
-        { this.state.clicked === false ?
-
-          return (
-            <div className="border_tweets">
-              <div className="row">
-                {all_tweets.map((tweet) => {
-                  return (
-                    <React.Fragment key={tweet.id}>
+        {this.state.clicked === false ? (
+          <div>
+            {all_tweets.map((tweet) => {
+              return (
+                <div key={tweet.id}>
+                  <div className="border_tweets">
+                    <div className="row">
                       <div className="col-8">
-                        <p className="p_stats" href="#"><span className="given_username" onClick={this.userClicked}>{tweet.username}</span>@ {tweet.username}</p>
-                          <p>{tweet.message}</p>
+                        <p className="p_stats" href="#">
+                          <span
+                            className="given_username"
+                            onClick={this.userClicked}
+                          >
+                            {tweet.username}
+                          </span>
+                          @ {tweet.username}
+                        </p>
+                        <p>{tweet.message}</p>
                       </div>
 
                       <div className="col-4">
                         <button
-                          onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
+                          onClick={() => {
+                            this.props.deletePost(tweet.id, tweet.username);
+                          }}
                           type="button"
                           className="btn btn-danger delete_button"
                         >
                           Delete
                         </button>
                       </div>
-                    </React.Fragment>
-                  )
-                }
-              </div>
-            </div>
-          );
-        })
-        :
-        this.state.chosen_tweets.map((tweet) => {
-          return (
-            <div className="border_tweets">
-              <div className="container">
-                <div className="row">
-                  <div key={tweet.id} className="col-8">
-                  <p className="p_stats" href="#">{tweet.username}@ {tweet.username}</p>
-                    <p>{tweet.message}</p>
+                    </div>
                   </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          this.state.chosen_tweets.map((tweet) => {
+            return (
+              <div key={tweet.id}>
+                <div className="border_tweets">
+                  <div className="row">
+                    <div className="col-8">
+                      <p className="p_stats" href="#">
+                        {tweet.username}@ {tweet.username}
+                      </p>
+                      <p>{tweet.message}</p>
+                    </div>
 
-                  <div className="col-4">
-                    <button
-                      onClick={() => {this.props.deletePost(tweet.id, tweet.username)}}
-                      type="button"
-                      className="btn btn-danger delete_button"
-                    >
-                      Delete
-                    </button>
+                    <div className="col-4">
+                      <button
+                        onClick={() => {
+                          this.props.deletePost(tweet.id, tweet.username);
+                        }}
+                        type="button"
+                        className="btn btn-danger delete_button"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })
-      }
+            );
+          })
+        )}
       </React.Fragment>
     );
   }

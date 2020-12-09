@@ -57,10 +57,10 @@ class Myposts extends Component {
 
         {user_tweets.map((tweet) => {
           return (
-            <div className="border_tweets">
-              <div className="container">
+            <div key={tweet.id}>
+            <div className="border_tweets">            
                 <div className="row">
-                  <div key={tweet.id} className="col-8">
+                  <div className="col-8">
                     <p className="p_stats">Username@ {tweet.username}</p>
                     <p>{tweet.message}</p>
                   </div>
@@ -73,7 +73,7 @@ class Myposts extends Component {
                       Delete
                     </button>
                   </div>
-                </div>
+                  </div>                
               </div>
             </div>
           );
