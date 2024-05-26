@@ -1,3 +1,5 @@
+The project stopped working, since it haven't been updated for a long time - I need to to review and make changes in order to make it functional again.
+
 Working version of App deployed to Heroku:
 https://fathomless-shore-47133.herokuapp.com/
 
