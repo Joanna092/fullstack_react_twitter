@@ -1,7 +1,7 @@
 Live version: 
 
 https://fathomless-shore-47133.herokuapp.com/
-(currently not working)
+(currently not working, need to re-deploy again)
 
 Made with React and Ruby on Rails.
 
